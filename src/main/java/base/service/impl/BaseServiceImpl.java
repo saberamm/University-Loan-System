@@ -4,7 +4,7 @@ import base.entity.BaseEntity;
 import base.repository.BaseRepository;
 import base.service.BaseService;
 import jakarta.persistence.EntityNotFoundException;
-import validations.EntityValidator;
+import validation.EntityValidator;
 
 
 import javax.validation.ConstraintViolation;

@@ -1,6 +1,6 @@
 package entity.enumertion;
 
-import java.util.Scanner;
+import static util.ApplicationContext.scanner;
 
 public enum Semester {
     term_1_1400,
@@ -29,7 +29,6 @@ public enum Semester {
     term_2_1411;
 
     public static Semester selectSemester() {
-        Scanner scanner = new Scanner(System.in);
         Semester selectedSemester = null;
 
         System.out.println("Available Semesters:");

@@ -5,10 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
+
 @Entity
 @Table(name = "houseinfo")
 public class HouseInfo extends BaseEntity<Long> {
+    @NotNull(message = "expire date cannot be null")
     private String rentNumber;
+    @NotNull(message = "expire date cannot be null")
     private String houseAddress;
     @OneToOne(mappedBy = "houseInfo")
     private Student student;
@@ -17,6 +22,11 @@ public class HouseInfo extends BaseEntity<Long> {
         this.rentNumber = rentNumber;
         this.houseAddress = houseAddress;
         this.student = student;
+    }
+
+    public HouseInfo(String rentNumber, String houseAddress) {
+        this.rentNumber = rentNumber;
+        this.houseAddress = houseAddress;
     }
 
     public HouseInfo() {
@@ -53,5 +63,18 @@ public class HouseInfo extends BaseEntity<Long> {
                 ", rentNumber='" + rentNumber + '\'' +
                 ", houseAddress='" + houseAddress + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HouseInfo houseInfo = (HouseInfo) o;
+        return Objects.equals(rentNumber, houseInfo.rentNumber) && Objects.equals(houseAddress, houseInfo.houseAddress) && Objects.equals(student, houseInfo.student);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rentNumber, houseAddress, student);
     }
 }

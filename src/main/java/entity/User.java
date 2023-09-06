@@ -16,7 +16,6 @@ public class User extends BaseEntity<Long> {
     private String firstName;
     @NotNull(message = "Lastname cannot be null")
     private String lastName;
-    @NotNull(message = "Username cannot be null")
     @Column(unique = true)
     private String username;
     @Size(min = 8, max = 50, message = "Password must be between 8 and 50 characters")

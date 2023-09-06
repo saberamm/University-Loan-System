@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "installment")
@@ -24,6 +25,13 @@ public class Installment extends BaseEntity<Long> {
         this.installmentAmount = installmentAmount;
         this.isPayed = isPayed;
         this.loan = loan;
+    }
+
+    public Installment(String installmentNumber, LocalDate payTime, Long installmentAmount, Boolean isPayed) {
+        this.installmentNumber = installmentNumber;
+        this.payTime = payTime;
+        this.installmentAmount = installmentAmount;
+        this.isPayed = isPayed;
     }
 
     public Installment() {
@@ -79,5 +87,18 @@ public class Installment extends BaseEntity<Long> {
                 ", isPayed=" + isPayed +
                 ", payed=" + getPayed() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Installment that = (Installment) o;
+        return Objects.equals(installmentNumber, that.installmentNumber) && Objects.equals(payTime, that.payTime) && Objects.equals(installmentAmount, that.installmentAmount) && Objects.equals(isPayed, that.isPayed) && Objects.equals(loan, that.loan);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(installmentNumber, payTime, installmentAmount, isPayed, loan);
     }
 }

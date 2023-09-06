@@ -6,7 +6,9 @@ import entity.enumertion.LoanType;
 import entity.enumertion.Semester;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "loan")
@@ -16,6 +18,7 @@ public class Loan extends BaseEntity<Long> {
     private LoanType loanType;
     @Enumerated(EnumType.STRING)
     private Semester semester;
+    @NotNull(message = "loanAmount cannot be null")
     private Long loanAmount;
     @ManyToOne(cascade = CascadeType.ALL)
     private CreditCard creditCard;
@@ -35,6 +38,14 @@ public class Loan extends BaseEntity<Long> {
         this.grade = grade;
         this.student = student;
         this.installments = installments;
+    }
+
+    public Loan(String loanNumber, LoanType loanType, Semester semester, Long loanAmount, Grade grade) {
+        this.loanNumber = loanNumber;
+        this.loanType = loanType;
+        this.semester = semester;
+        this.loanAmount = loanAmount;
+        this.grade = grade;
     }
 
     public Loan() {
@@ -116,5 +127,18 @@ public class Loan extends BaseEntity<Long> {
                 ", grade=" + grade +
                 ", installments=" + installments +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Loan loan = (Loan) o;
+        return Objects.equals(loanNumber, loan.loanNumber) && loanType == loan.loanType && semester == loan.semester && Objects.equals(loanAmount, loan.loanAmount) && Objects.equals(creditCard, loan.creditCard) && grade == loan.grade && Objects.equals(student, loan.student) && Objects.equals(installments, loan.installments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(loanNumber, loanType, semester, loanAmount, creditCard, grade, student, installments);
     }
 }

@@ -5,12 +5,16 @@ import entity.enumertion.City;
 import entity.enumertion.UniversityType;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "university")
 public class University extends BaseEntity<Long> {
+    @NotNull(message = "universityName cannot be null")
     private String universityName;
+    @NotNull(message = "universityType cannot be null")
     @Enumerated(EnumType.STRING)
     private UniversityType universityType;
     private Boolean daily;
@@ -25,6 +29,19 @@ public class University extends BaseEntity<Long> {
         this.daily = daily;
         this.city = city;
         this.students = students;
+    }
+
+    public University(String universityName, UniversityType universityType, Boolean daily, City city) {
+        this.universityName = universityName;
+        this.universityType = universityType;
+        this.daily = daily;
+        this.city = city;
+    }
+
+    public University(String universityName, UniversityType universityType, City city) {
+        this.universityName = universityName;
+        this.universityType = universityType;
+        this.city = city;
     }
 
     public University() {
@@ -79,5 +96,18 @@ public class University extends BaseEntity<Long> {
                 ", daily=" + daily +
                 ", city=" + city +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        University that = (University) o;
+        return Objects.equals(universityName, that.universityName) && universityType == that.universityType && Objects.equals(daily, that.daily) && city == that.city && Objects.equals(students, that.students);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(universityName, universityType, daily, city, students);
     }
 }

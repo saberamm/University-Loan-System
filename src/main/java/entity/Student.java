@@ -3,61 +3,122 @@ package entity;
 import entity.enumertion.Grade;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "student")
-public class Student extends User{
+public class Student extends User {
     private String fatherName;
     private String motherName;
+    @NotNull(message = "birthCertificateNumber cannot be null")
     private String birthCertificateNumber;
+    @NotNull(message = "nationalCode cannot be null")
     private String nationalCode;
+    @NotNull(message = "studentNumber cannot be null")
     private String studentNumber;
     private String spouseNationalCode;
+    @NotNull(message = "enterYear cannot be null")
     private LocalDate enterYear;
+
     @Enumerated(EnumType.STRING)
     private Grade grade;
     private Boolean dormitoryResident;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private University university;
+
     @OneToOne(cascade = CascadeType.ALL)
     private HouseInfo houseInfo;
+
     @OneToMany(mappedBy = "student")
     private List<Loan> loans;
 
-    public Student(String fatherName, String motherName, String birthCertificateNumber, String nationalCode, String studentNumber, String spouseNationalCode, LocalDate enterYear, Grade grade, Boolean dormitoryResident, University university, HouseInfo houseInfo, List<Loan> loans) {
-        this.fatherName = fatherName;
-        this.motherName = motherName;
-        this.birthCertificateNumber = birthCertificateNumber;
-        this.nationalCode = nationalCode;
-        this.studentNumber = studentNumber;
-        this.spouseNationalCode = spouseNationalCode;
-        this.enterYear = enterYear;
-        this.grade = grade;
-        this.dormitoryResident = dormitoryResident;
-        this.university = university;
-        this.houseInfo = houseInfo;
-        this.loans = loans;
-    }
-
-    public Student(String firstName, String lastName, String username, String password, LocalDate birthDate, String fatherName, String motherName, String birthCertificateNumber, String nationalCode, String studentNumber, String spouseNationalCode, LocalDate enterYear, Grade grade, Boolean dormitoryResident, University university, HouseInfo houseInfo, List<Loan> loans) {
-        super(firstName, lastName, username, password, birthDate);
-        this.fatherName = fatherName;
-        this.motherName = motherName;
-        this.birthCertificateNumber = birthCertificateNumber;
-        this.nationalCode = nationalCode;
-        this.studentNumber = studentNumber;
-        this.spouseNationalCode = spouseNationalCode;
-        this.enterYear = enterYear;
-        this.grade = grade;
-        this.dormitoryResident = dormitoryResident;
-        this.university = university;
-        this.houseInfo = houseInfo;
-        this.loans = loans;
-    }
-
     public Student() {
+
+    }
+
+    public static class Builder {
+        private Student student;
+
+        public Builder() {
+            student = new Student();
+        }
+
+        public Builder withUserProperties(String firstName, String lastName, String username, String password, LocalDate birthDate) {
+            student.setFirstName(firstName);
+            student.setLastName(lastName);
+            student.setUsername(username);
+            student.setPassword(password);
+            student.setBirthDate(birthDate);
+            return this;
+        }
+
+        public Builder withFatherName(String fatherName) {
+            student.fatherName = fatherName;
+            return this;
+        }
+
+        public Builder withMotherName(String motherName) {
+            student.motherName = motherName;
+            return this;
+        }
+
+        public Builder withBirthCertificateNumber(String birthCertificateNumber) {
+            student.birthCertificateNumber = birthCertificateNumber;
+            return this;
+        }
+
+        public Builder withNationalCode(String nationalCode) {
+            student.nationalCode = nationalCode;
+            return this;
+        }
+
+        public Builder withStudentNumber(String studentNumber) {
+            student.studentNumber = studentNumber;
+            return this;
+        }
+
+        public Builder withSpouseNationalCode(String spouseNationalCode) {
+            student.spouseNationalCode = spouseNationalCode;
+            return this;
+        }
+
+        public Builder withEnterYear(LocalDate enterYear) {
+            student.enterYear = enterYear;
+            return this;
+        }
+
+        public Builder withGrade(Grade grade) {
+            student.grade = grade;
+            return this;
+        }
+
+        public Builder withDormitoryResident(Boolean dormitoryResident) {
+            student.dormitoryResident = dormitoryResident;
+            return this;
+        }
+
+        public Builder withUniversity(University university) {
+            student.university = university;
+            return this;
+        }
+
+        public Builder withHouseInfo(HouseInfo houseInfo) {
+            student.houseInfo = houseInfo;
+            return this;
+        }
+
+        public Builder withLoans(List<Loan> loans) {
+            student.loans = loans;
+            return this;
+        }
+
+        public Student build() {
+            return student;
+        }
     }
 
     public String getFatherName() {
@@ -170,13 +231,25 @@ public class Student extends User{
                 ", grade=" + grade +
                 ", dormitoryResident=" + dormitoryResident +
                 ", university=" + university +
-                ", houseInfo=" + houseInfo +
-                ", loans=" + loans +
                 ", firstName='" + getFirstName() + '\'' +
                 ", lastName='" + getLastName() + '\'' +
                 ", username='" + getUsername() + '\'' +
                 ", password='" + getPassword() + '\'' +
                 ", birthDate=" + getBirthDate() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Student student = (Student) o;
+        return Objects.equals(fatherName, student.fatherName) && Objects.equals(motherName, student.motherName) && Objects.equals(birthCertificateNumber, student.birthCertificateNumber) && Objects.equals(nationalCode, student.nationalCode) && Objects.equals(studentNumber, student.studentNumber) && Objects.equals(spouseNationalCode, student.spouseNationalCode) && Objects.equals(enterYear, student.enterYear) && grade == student.grade && Objects.equals(dormitoryResident, student.dormitoryResident) && Objects.equals(university, student.university) && Objects.equals(houseInfo, student.houseInfo) && Objects.equals(loans, student.loans);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), fatherName, motherName, birthCertificateNumber, nationalCode, studentNumber, spouseNationalCode, enterYear, grade, dormitoryResident, university, houseInfo, loans);
     }
 }

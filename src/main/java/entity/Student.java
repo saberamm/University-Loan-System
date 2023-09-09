@@ -4,6 +4,7 @@ import entity.enumertion.Grade;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class Student extends User {
     @NotNull(message = "nationalCode cannot be null")
     private String nationalCode;
     @NotNull(message = "studentNumber cannot be null")
+    @Size(min = 5, max = 5, message = "student Number must have 5 digits")
     private String studentNumber;
     private String spouseNationalCode;
     @NotNull(message = "enterYear cannot be null")

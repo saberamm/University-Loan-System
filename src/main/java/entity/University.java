@@ -6,12 +6,16 @@ import entity.enumertion.UniversityType;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "university")
 public class University extends BaseEntity<Long> {
+    @NotNull(message = "university Number cannot be null")
+    @Size(min = 5, max = 5, message = "university Number must have 5 digits")
+    private String universityNumber;
     @NotNull(message = "universityName cannot be null")
     private String universityName;
     @NotNull(message = "universityType cannot be null")
@@ -23,28 +27,39 @@ public class University extends BaseEntity<Long> {
     @OneToMany(mappedBy = "university")
     private List<Student> students;
 
-    public University(String universityName, UniversityType universityType, Boolean daily, City city, List<Student> students) {
+    public University(String universityName,String universityNumber, UniversityType universityType, Boolean daily, City city, List<Student> students) {
         this.universityName = universityName;
+        this.universityNumber=universityNumber;
         this.universityType = universityType;
         this.daily = daily;
         this.city = city;
         this.students = students;
     }
 
-    public University(String universityName, UniversityType universityType, Boolean daily, City city) {
+    public University(String universityName,String universityNumber, UniversityType universityType, Boolean daily, City city) {
         this.universityName = universityName;
+        this.universityNumber=universityNumber;
         this.universityType = universityType;
         this.daily = daily;
         this.city = city;
     }
 
-    public University(String universityName, UniversityType universityType, City city) {
+    public University(String universityName,String universityNumber, UniversityType universityType, City city) {
         this.universityName = universityName;
+        this.universityNumber=universityNumber;
         this.universityType = universityType;
         this.city = city;
     }
 
     public University() {
+    }
+
+    public String getUniversityNumber() {
+        return universityNumber;
+    }
+
+    public void setUniversityNumber(String universityNumber) {
+        this.universityNumber = universityNumber;
     }
 
     public String getUniversityName() {
@@ -92,6 +107,7 @@ public class University extends BaseEntity<Long> {
         return "University{" +
                 "id=" + getId() +
                 ", universityName='" + universityName + '\'' +
+                ", universityNumber='" + universityNumber + '\'' +
                 ", universityType=" + universityType +
                 ", daily=" + daily +
                 ", city=" + city +
@@ -103,11 +119,11 @@ public class University extends BaseEntity<Long> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         University that = (University) o;
-        return Objects.equals(universityName, that.universityName) && universityType == that.universityType && Objects.equals(daily, that.daily) && city == that.city && Objects.equals(students, that.students);
+        return Objects.equals(universityNumber, that.universityNumber) && Objects.equals(universityName, that.universityName) && universityType == that.universityType && Objects.equals(daily, that.daily) && city == that.city && Objects.equals(students, that.students);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(universityName, universityType, daily, city, students);
+        return Objects.hash(universityNumber, universityName, universityType, daily, city, students);
     }
 }

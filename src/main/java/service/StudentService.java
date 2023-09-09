@@ -4,4 +4,5 @@ import base.service.BaseService;
 import entity.Student;
 
 public interface StudentService extends BaseService<Student, Long> {
+    Student findByStudentNumber(String studentNumber);
 }

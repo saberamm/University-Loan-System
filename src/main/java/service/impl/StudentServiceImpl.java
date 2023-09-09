@@ -9,4 +9,8 @@ public class StudentServiceImpl extends BaseServiceImpl<Student, Long, StudentRe
     public StudentServiceImpl(StudentRepository repository) {
         super(repository);
     }
+    @Override
+    public Student findByStudentNumber(String studentNumber) {
+        return repository.findByStudentNumber(studentNumber);
+    }
 }

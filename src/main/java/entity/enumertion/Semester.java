@@ -1,6 +1,7 @@
 package entity.enumertion;
 
-import static util.ApplicationContext.scanner;
+
+import validation.TypeValidator;
 
 public enum Semester {
     term_1_1400,
@@ -40,7 +41,7 @@ public enum Semester {
 
         while (selectedSemester == null) {
             System.out.print("Enter the number of the desired semester: ");
-            int choice = scanner.nextInt();
+            int choice = TypeValidator.getIntInput();
 
             if (choice >= 1 && choice <= Semester.values().length) {
                 selectedSemester = Semester.values()[choice - 1];

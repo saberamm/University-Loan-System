@@ -11,7 +11,6 @@ import service.impl.*;
 import java.util.Scanner;
 
 public class ApplicationContext {
-    public static Scanner scanner = new Scanner(System.in);
     static EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
 
     //------------ user application context ------------------//

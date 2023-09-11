@@ -62,7 +62,11 @@ public class UserMenu {
         System.out.print("are you a dormitory Resident ? (true or false to answer)");
         student.setDormitoryResident(TypeValidator.getBooleanInput());
         System.out.print("Enter your university number :");
-        String universityNumber=scanner.next();
+        String universityNumber = scanner.next();
+        if (ApplicationContext.getUniversityService().findByUniversityNumber(universityNumber) == null) {
+            System.out.println("this university doesn't exist");
+            run();
+        }
         student.setUniversity(ApplicationContext.getUniversityService().findByUniversityNumber(universityNumber));
         student.setUsername(student.getNationalCode());
         student.setPassword(PasswordGenerator.generatePassword());
@@ -93,7 +97,7 @@ public class UserMenu {
                 SecurityContext.studentNumber = student.getStudentNumber();
                 StudentMenu.run();
             }
-            if (user.getUsername().equals("Admin")) {
+            if (user.getUsername().equalsIgnoreCase("Admin")) {
                 AdminMenu.run();
             }
         } else {

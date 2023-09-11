@@ -6,12 +6,14 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @Table(name = "houseinfo")
 public class HouseInfo extends BaseEntity<Long> {
     @NotNull(message = "expire date cannot be null")
+    @Size(min = 12, max = 12, message = "Rent number must have 12 digits")
     private String rentNumber;
     @NotNull(message = "expire date cannot be null")
     private String houseAddress;

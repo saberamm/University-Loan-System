@@ -7,7 +7,7 @@ public enum LoanType {
     EDUCATION_LOAN,
     HOUSE_LOAN;
     public static LoanType selectLoan() {
-        System.out.println("Please select a loan:");
+        System.out.println("Enter the type of loan you want:");
         System.out.println("0 - TUITION_LOAN");
         System.out.println("1 - EDUCATION_LOAN");
         System.out.println("2 - HOUSE_LOAN");

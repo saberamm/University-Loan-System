@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -15,6 +16,7 @@ public class Installment extends BaseEntity<Long> {
     private String installmentNumber;
     private LocalDate payTime;
     private Long installmentAmount;
+    @NotNull(message = "isPayed cannot be null")
     private Boolean isPayed;
     @ManyToOne(cascade = CascadeType.ALL)
     private Loan loan;

@@ -1,7 +1,5 @@
 package ui;
 
-import entity.CreditCard;
-import entity.HouseInfo;
 import entity.Loan;
 import entity.Student;
 import entity.enumertion.*;
@@ -14,6 +12,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
+import static ui.CreditCardMenu.addCreditCard;
+import static ui.HouseInfoMenu.addHouse;
 import static ui.UserMenu.scanner;
 
 public class StudentMenu {
@@ -56,7 +56,6 @@ public class StudentMenu {
             run();
         }
         Loan loan = new Loan();
-        System.out.print("Enter the type of loan you want :");
         loan.setLoanType(LoanType.selectLoan());
         loan.setGrade(student.getGrade());
         if (loan.getLoanType().equals(LoanType.HOUSE_LOAN) && hasHouseLoan(ApplicationContext.getLoanService().getLoansByStudentNumber(student.getStudentNumber()), student)) {
@@ -70,6 +69,10 @@ public class StudentMenu {
         }
         if (loan.getLoanType().equals(LoanType.HOUSE_LOAN) && hasSpouseHouseLoan(ApplicationContext.getLoanService().getLoansByNationalCode(student.getSpouseNationalCode()))) {
             System.out.println("you cant get house loan because your spouse already get one");
+            run();
+        }
+        if (student.getDormitoryResident() && loan.getLoanType() == LoanType.HOUSE_LOAN) {
+            System.out.println("the dormitory residents cant get a house loan");
             run();
         }
         if (loan.getLoanType().equals(LoanType.HOUSE_LOAN)) {
@@ -90,29 +93,10 @@ public class StudentMenu {
         }
         loan.setLoanNumber(appendRandomDigits(student.getNationalCode(), 5));
         loan.setLoanAmount(loanAmount(student, loan));
-    }
-
-    public static void addHouse(Student student) {
-        HouseInfo houseInfo = new HouseInfo();
-        System.out.print("Enter the house rent number :");
-        houseInfo.setRentNumber(scanner.next());
-        System.out.print("Enter your house address");
-        houseInfo.setHouseAddress(scanner.next());
-        student.setHouseInfo(houseInfo);
-    }
-
-    public static void addCreditCard(Student student) {
-        CreditCard creditCard = new CreditCard();
-        creditCard.setCreditCardNumber(scanner.next());
-        creditCard.setBankName(BankName.checkBank(creditCard.getCreditCardNumber()));
-        if (creditCard.getBankName() == null) {
-            System.out.println("credit card number is not valid");
-            addCreditCard(student);
-        }
-        System.out.print("Enter expire date :");
-        creditCard.setExpire(TypeValidator.dateFormatter());
-        System.out.print("Enter cvv2 :");
-        creditCard.setCvv2(scanner.next());
+        loan.setCreditCard(addCreditCard());
+        loan.setStudent(student);
+        ApplicationContext.getLoanService().save(loan);
+        run();
     }
 
 

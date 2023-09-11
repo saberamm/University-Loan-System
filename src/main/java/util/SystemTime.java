@@ -6,7 +6,7 @@ import validation.TypeValidator;
 import java.time.LocalDate;
 
 public class SystemTime {
-    public static LocalDate systemTime;
+    public static LocalDate systemTime = LocalDate.of(1402, 6, 25);
 
     public static void isLoanTime() {
         LocalDate currentDate = systemTime;

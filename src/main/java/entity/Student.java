@@ -223,6 +223,11 @@ public class Student extends User {
     public String toString() {
         return "Student{" +
                 "id=" + getId() +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", username='" + getUsername() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", birthDate=" + getBirthDate() +
                 ", fatherName='" + fatherName + '\'' +
                 ", motherName='" + motherName + '\'' +
                 ", birthCertificateNumber='" + birthCertificateNumber + '\'' +
@@ -233,11 +238,7 @@ public class Student extends User {
                 ", grade=" + grade +
                 ", dormitoryResident=" + dormitoryResident +
                 ", university=" + university +
-                ", firstName='" + getFirstName() + '\'' +
-                ", lastName='" + getLastName() + '\'' +
-                ", username='" + getUsername() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                ", birthDate=" + getBirthDate() +
+                ", houseInfo=" + houseInfo +
                 '}';
     }
 

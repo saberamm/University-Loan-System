@@ -27,4 +27,5 @@ public class StudentRepositoryImpl extends BaseRepositoryImpl<Student, Long> imp
 
         return entityManager.createQuery(criteriaQuery).getResultStream().findFirst().orElse(null);
     }
+
 }

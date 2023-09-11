@@ -1,5 +1,7 @@
 package entity.enumertion;
 
+import validation.TypeValidator;
+
 public enum BankName {
     MASKAN,
     REFAH,

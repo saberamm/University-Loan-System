@@ -15,13 +15,13 @@ import java.util.Objects;
 public class Installment extends BaseEntity<Long> {
     private String installmentNumber;
     private LocalDate payTime;
-    private Long installmentAmount;
+    private Double installmentAmount;
     @NotNull(message = "isPayed cannot be null")
     private Boolean isPayed;
     @ManyToOne(cascade = CascadeType.ALL)
     private Loan loan;
 
-    public Installment(String installmentNumber, LocalDate payTime, Long installmentAmount, Boolean isPayed, Loan loan) {
+    public Installment(String installmentNumber, LocalDate payTime, Double installmentAmount, Boolean isPayed, Loan loan) {
         this.installmentNumber = installmentNumber;
         this.payTime = payTime;
         this.installmentAmount = installmentAmount;
@@ -29,7 +29,7 @@ public class Installment extends BaseEntity<Long> {
         this.loan = loan;
     }
 
-    public Installment(String installmentNumber, LocalDate payTime, Long installmentAmount, Boolean isPayed) {
+    public Installment(String installmentNumber, LocalDate payTime, Double installmentAmount, Boolean isPayed) {
         this.installmentNumber = installmentNumber;
         this.payTime = payTime;
         this.installmentAmount = installmentAmount;
@@ -55,19 +55,19 @@ public class Installment extends BaseEntity<Long> {
         this.payTime = payTime;
     }
 
-    public Long getInstallmentAmount() {
+    public Double getInstallmentAmount() {
         return installmentAmount;
     }
 
-    public void setInstallmentAmount(Long installmentAmount) {
+    public void setInstallmentAmount(Double installmentAmount) {
         this.installmentAmount = installmentAmount;
     }
 
-    public Boolean getPayed() {
+    public Boolean getIsPayed() {
         return isPayed;
     }
 
-    public void setPayed(Boolean payed) {
+    public void setIsPayed(Boolean payed) {
         isPayed = payed;
     }
 
@@ -85,9 +85,8 @@ public class Installment extends BaseEntity<Long> {
                 "id=" + getId() +
                 ", installmentNumber='" + installmentNumber + '\'' +
                 ", payTime=" + payTime +
-                ", installmentAmount=" + installmentAmount +
+                ", installmentAmount=" + String.format("%.1f", installmentAmount) +
                 ", isPayed=" + isPayed +
-                ", payed=" + getPayed() +
                 '}';
     }
 

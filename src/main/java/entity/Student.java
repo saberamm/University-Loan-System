@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "student")
 public class Student extends User {
     private String fatherName;
     private String motherName;
@@ -239,7 +238,6 @@ public class Student extends User {
                 ", enterYear=" + enterYear +
                 ", grade=" + grade +
                 ", dormitoryResident=" + dormitoryResident +
-                ", university=" + university +
                 ", houseInfo=" + houseInfo +
                 '}';
     }

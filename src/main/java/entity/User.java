@@ -12,9 +12,9 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "user_table")
 public class User extends BaseEntity<Long> {
-    @NotNull(message = "Name cannot be null")
+    @NotNull(message = "Name can not be null")
     private String firstName;
-    @NotNull(message = "Lastname cannot be null")
+    @NotNull(message = "Lastname can not be null")
     private String lastName;
     @Column(unique = true)
     private String username;

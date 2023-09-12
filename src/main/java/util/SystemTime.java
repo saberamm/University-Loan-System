@@ -1,5 +1,6 @@
 package util;
 
+import ui.LoanMenu;
 import ui.StudentMenu;
 import validation.TypeValidator;
 
@@ -18,9 +19,9 @@ public class SystemTime {
         LocalDate secondWindowEnd = secondWindowStart.plusWeeks(1);
 
         if ((currentDate.isEqual(firstWindowStart) || currentDate.isAfter(firstWindowStart)) && currentDate.isBefore(firstWindowEnd)) {
-            StudentMenu.addLoan();
+            LoanMenu.addLoan();
         } else if ((currentDate.isEqual(secondWindowStart) || currentDate.isAfter(secondWindowStart)) && currentDate.isBefore(secondWindowEnd)) {
-            StudentMenu.addLoan();
+            LoanMenu.addLoan();
         } else {
             System.out.println("At this time you cant get a new loan come back later");
             StudentMenu.run();

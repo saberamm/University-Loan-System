@@ -123,9 +123,7 @@ public class Loan extends BaseEntity<Long> {
                 ", loanType=" + loanType +
                 ", semester=" + semester +
                 ", loanAmount=" + loanAmount +
-                ", creditCard=" + creditCard +
                 ", grade=" + grade +
-                ", installments=" + installments +
                 '}';
     }
 

@@ -10,4 +10,9 @@ public class InstallmentServiceImpl extends BaseServiceImpl<Installment, Long, I
     public InstallmentServiceImpl(InstallmentRepository repository) {
         super(repository);
     }
+
+    @Override
+    public Installment findByInstallmentNumber(String installmentNumber) {
+        return repository.findByInstallmentNumber(installmentNumber);
+    }
 }

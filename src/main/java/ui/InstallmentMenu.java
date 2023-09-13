@@ -81,19 +81,19 @@ public class InstallmentMenu {
         System.out.print("Enter the credit card number :");
         clientCreditCard.setCreditCardNumber(scanner.next());
         while (!loanCreditCard.getCreditCardNumber().equals(clientCreditCard.getCreditCardNumber())) {
-            System.out.println("credit card number is not correct try again");
+            System.out.print("credit card number is not correct try again :");
             clientCreditCard.setCreditCardNumber(scanner.next());
         }
         System.out.print("Enter cvv2 :");
         clientCreditCard.setCvv2(scanner.next());
         while (!loanCreditCard.getCvv2().equals(clientCreditCard.getCvv2())) {
-            System.out.println("cvv2 is not correct try again");
+            System.out.print("cvv2 is not correct try again :");
             clientCreditCard.setCvv2(scanner.next());
         }
         System.out.print("Enter expire date :");
         clientCreditCard.setExpire(TypeValidator.cardDateFormatter());
         while (!loanCreditCard.getExpire().equals(clientCreditCard.getExpire())) {
-            System.out.println("expire date is not correct try again");
+            System.out.print("expire date is not correct try again :");
             clientCreditCard.setExpire(TypeValidator.cardDateFormatter());
         }
         installment.setIsPayed(true);

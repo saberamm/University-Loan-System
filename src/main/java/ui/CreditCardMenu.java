@@ -19,7 +19,7 @@ public class CreditCardMenu {
             creditCard.setCreditCardNumber(scanner.next());
             creditCard.setBankName(BankName.checkBank(creditCard.getCreditCardNumber()));
         }
-        System.out.println("Enter expire date :");
+        System.out.print("Enter expire date :");
         creditCard.setExpire(TypeValidator.cardDateFormatter());
         System.out.print("Enter cvv2 :");
         creditCard.setCvv2(scanner.next());
@@ -33,7 +33,7 @@ public class CreditCardMenu {
                 creditCard.setCreditCardNumber(scanner.next());
                 creditCard.setBankName(BankName.checkBank(creditCard.getCreditCardNumber()));
             }
-            System.out.println("Enter expire date :");
+            System.out.print("Enter expire date :");
             creditCard.setExpire(TypeValidator.cardDateFormatter());
             System.out.print("Enter cvv2 :");
             creditCard.setCvv2(scanner.next());

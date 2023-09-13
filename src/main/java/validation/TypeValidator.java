@@ -37,12 +37,12 @@ public class TypeValidator {
         while (true) {
             String input = scanner.next();
 
-            if (input.equalsIgnoreCase("true")) {
+            if (input.equalsIgnoreCase("yes")) {
                 return true;
-            } else if (input.equalsIgnoreCase("false")) {
+            } else if (input.equalsIgnoreCase("no")) {
                 return false;
             } else {
-                System.out.println("Invalid input. Please enter 'true' or 'false'.");
+                System.out.println("Invalid input. Please enter 'yes' or 'no'.");
             }
         }
     }

@@ -23,6 +23,7 @@ public class LoanMenu {
             StudentMenu.run();
         }
         Loan loan = new Loan();
+        loan.setSemester(yearSemester(SystemTime.systemTime));
         loan.setLoanType(LoanType.selectLoan());
         loan.setGrade(student.getGrade());
         if (loan.getLoanType().equals(LoanType.HOUSE_LOAN) && hasHouseLoan(ApplicationContext.getLoanService().getLoansByStudentNumber(student.getStudentNumber()), student)) {
@@ -45,7 +46,6 @@ public class LoanMenu {
         if (loan.getLoanType().equals(LoanType.HOUSE_LOAN) & student.getHouseInfo() == null) {
             addHouse(student);
         }
-        loan.setSemester(yearSemester(SystemTime.systemTime));
         if (student.getUniversity().getUniversityType().equals(UniversityType.DOLATI) && loan.getLoanType().equals(LoanType.TUITION_LOAN)) {
             System.out.println("tuition loan doesn't belong to student with dolati university");
             StudentMenu.run();
@@ -168,7 +168,7 @@ public class LoanMenu {
         if (localDate.isBefore(LocalDate.of(1400, 1, 1)) ||
                 localDate.isAfter(LocalDate.of(1411, 10, 30))) {
             System.out.println("there is no semester for this time");
-            return null;
+            StudentMenu.run();
         }
         String s;
         if (localDate.isAfter(LocalDate.of(localDate.getYear(), 11, 1))) {

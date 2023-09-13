@@ -13,8 +13,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "installment")
 public class Installment extends BaseEntity<Long> {
+    @NotNull(message = "installmentNumber cannot be null")
     private String installmentNumber;
+    @NotNull(message = "payTime cannot be null")
     private LocalDate payTime;
+    @NotNull(message = "installmentAmount cannot be null")
     private Double installmentAmount;
     @NotNull(message = "isPayed cannot be null")
     private Boolean isPayed;

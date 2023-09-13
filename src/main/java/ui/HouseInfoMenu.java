@@ -11,12 +11,12 @@ public class HouseInfoMenu {
         HouseInfo houseInfo = new HouseInfo();
         System.out.print("Enter the house rent number :");
         houseInfo.setRentNumber(scanner.next());
-        System.out.print("Enter your house address");
+        System.out.print("Enter your house address :");
         houseInfo.setHouseAddress(scanner.next());
         while (!ApplicationContext.getHouseInfoService().isValid(houseInfo)) {
             System.out.print("Enter the house rent number :");
             houseInfo.setRentNumber(scanner.next());
-            System.out.print("Enter your house address");
+            System.out.print("Enter your house address :");
             houseInfo.setHouseAddress(scanner.next());
         }
         student.setHouseInfo(houseInfo);

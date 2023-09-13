@@ -18,10 +18,10 @@ public class UniversityMenu {
         System.out.print("Enter the university type :");
         university.setUniversityType(UniversityType.selectUniversityType());
         if (university.getUniversityType().equals(UniversityType.DOLATI)) {
-            System.out.println("is this university daily?");
+            System.out.print("is this university daily ? (yes or no to answer) :");
             university.setDaily(TypeValidator.getBooleanInput());
         }
-        System.out.println("Enter the university city :");
+        System.out.print("Enter the university city :");
         university.setCity(City.selectCity());
         if (ApplicationContext.getUniversityService().findByUniversityNumber(university.getUniversityNumber()) != null) {
             System.out.println("this university already exist");

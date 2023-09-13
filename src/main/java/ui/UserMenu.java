@@ -59,7 +59,7 @@ public class UserMenu {
         student.setEnterYear(TypeValidator.dateFormatter());
         System.out.print("Enter your grade :");
         student.setGrade(Grade.selectGrade());
-        System.out.print("are you a dormitory Resident ? (true or false to answer)");
+        System.out.print("are you a dormitory Resident ? (yes or no to answer) :");
         student.setDormitoryResident(TypeValidator.getBooleanInput());
         System.out.print("Enter your university number :");
         String universityNumber = scanner.next();

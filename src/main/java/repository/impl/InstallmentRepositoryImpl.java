@@ -8,6 +8,8 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import repository.InstallmentRepository;
 
+import java.util.List;
+
 public class InstallmentRepositoryImpl extends BaseRepositoryImpl<Installment, Long> implements InstallmentRepository {
     public InstallmentRepositoryImpl(EntityManager entityManager) {
         super(entityManager);
@@ -17,6 +19,7 @@ public class InstallmentRepositoryImpl extends BaseRepositoryImpl<Installment, L
     public Class<Installment> getEntityClass() {
         return Installment.class;
     }
+
     @Override
     public Installment findByInstallmentNumber(String installmentNumber) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -26,5 +29,16 @@ public class InstallmentRepositoryImpl extends BaseRepositoryImpl<Installment, L
         criteriaQuery.select(root).where(builder.equal(root.get("installmentNumber"), installmentNumber));
 
         return entityManager.createQuery(criteriaQuery).getResultStream().findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Installment> findByInstallmentsLoanId(Long id) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Installment> criteriaQuery = builder.createQuery(Installment.class);
+        Root<Installment> root = criteriaQuery.from(Installment.class);
+
+        criteriaQuery.select(root).where(builder.equal(root.get("loan"), id));
+
+        return entityManager.createQuery(criteriaQuery).getResultStream().toList();
     }
 }

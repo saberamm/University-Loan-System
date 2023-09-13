@@ -42,7 +42,7 @@ public class LoanMenu {
             System.out.println("the dormitory residents cant get a house loan");
             StudentMenu.run();
         }
-        if (loan.getLoanType().equals(LoanType.HOUSE_LOAN)) {
+        if (loan.getLoanType().equals(LoanType.HOUSE_LOAN) & student.getHouseInfo() == null) {
             addHouse(student);
         }
         loan.setSemester(yearSemester(SystemTime.systemTime));
@@ -50,11 +50,11 @@ public class LoanMenu {
             System.out.println("tuition loan doesn't belong to student with dolati university");
             StudentMenu.run();
         }
-        if (hasTuitionLoan(ApplicationContext.getLoanService().getLoansByStudentNumber(student.getStudentNumber()), loan.getSemester())) {
+        if (loan.getLoanType().equals(LoanType.TUITION_LOAN) && hasTuitionLoan(ApplicationContext.getLoanService().getLoansByStudentNumber(student.getStudentNumber()), loan.getSemester())) {
             System.out.println("you cant get another tuition loan because you already get one in this semester");
             StudentMenu.run();
         }
-        if (hasEducationLoan(ApplicationContext.getLoanService().getLoansByStudentNumber(student.getStudentNumber()), loan.getSemester())) {
+        if (loan.getLoanType().equals(LoanType.EDUCATION_LOAN) && hasEducationLoan(ApplicationContext.getLoanService().getLoansByStudentNumber(student.getStudentNumber()), loan.getSemester())) {
             System.out.println("you cant get another education loan because you already get one in this semester");
             StudentMenu.run();
         }
@@ -65,8 +65,9 @@ public class LoanMenu {
         if (ApplicationContext.getLoanService().isValid(loan)) {
             ApplicationContext.getLoanService().save(loan);
             InstallmentMenu.addInstallment(loan);
+            System.out.println("loan payed successfully");
             StudentMenu.run();
-        } else addLoan();
+        } else StudentMenu.run();
     }
 
     public static Long loanAmount(Student student, Loan loan) {

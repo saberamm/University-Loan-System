@@ -19,6 +19,7 @@ public class TypeValidator {
             }
         }
     }
+
     public static int getIntInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -30,6 +31,7 @@ public class TypeValidator {
             }
         }
     }
+
     public static boolean getBooleanInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -44,6 +46,7 @@ public class TypeValidator {
             }
         }
     }
+
     public static LocalDate dateFormatter() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy,M,d");
         LocalDate localDate = null;
@@ -57,7 +60,26 @@ public class TypeValidator {
                 localDate = LocalDate.parse(dateString, formatter);
                 validInput = true;
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Please use yyyy,M,d.");
+                System.out.println("Invalid date format. Please use yyyy,M,d");
+            }
+        }
+        return localDate;
+    }
+
+    public static LocalDate cardDateFormatter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy,M,d");
+        LocalDate localDate = null;
+        boolean validInput = false;
+
+        while (!validInput) {
+            System.out.print("Enter a date in the format (yy,M): ");
+            String dateString = scanner.next();
+
+            try {
+                localDate = LocalDate.parse("13"+dateString+",01", formatter);
+                validInput = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use yyyy,M,d");
             }
         }
         return localDate;

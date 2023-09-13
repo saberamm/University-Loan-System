@@ -28,10 +28,14 @@ public class InstallmentMenu {
             StudentMenu.run();
         }
         List<Loan> loanList = student.getLoans();
-        for (int i = 0; i <= loanList.size() - 1; i++) {
+        if (loanList.size() == 0) {
+            System.out.println("you dont have any loan");
+            StudentMenu.run();
+        }
+        for (int i = 0; i <= Objects.requireNonNull(loanList).size() - 1; i++) {
             System.out.println(loanList.get(i));
         }
-        System.out.print("Enter the loan number you want to pay installments");
+        System.out.print("Enter the loan number you want to pay installments :");
         String loanNumber = scanner.next();
         Loan loan = null;
         for (int i = 0; i <= loanList.size() - 1; i++) {
@@ -45,52 +49,61 @@ public class InstallmentMenu {
             StudentMenu.run();
         }
 
-        installmentCheck(loan);
+        assert loan != null;
+        installmentCheck(loan.getId());
     }
 
-    public static void installmentCheck(Loan loan) {
-        for (int i = 0; i <= Objects.requireNonNull(loan).getInstallments().size() - 1; i++) {
-            System.out.println(loan.getInstallments().get(i));
+    public static void installmentCheck(Long loanId) {
+        List<Installment> installments = ApplicationContext.getInstallmentService().findByInstallmentsLoanId(loanId);
+        for (int i = 0; i <= installments.size() - 1; i++) {
+            System.out.println(installments.get(i));
         }
-        System.out.println("Enter the installment number you want to pay");
+        System.out.print("Enter the installment number you want to pay :");
         String installmentNumber = scanner.next();
-        if (!isInstallmentExist(loan, installmentNumber)) {
+        while (!isInstallmentExist(installments, installmentNumber)) {
             System.out.println("installment number doesn't exist try again");
-            installmentCheck(loan);
+            System.out.print("Enter the installment number you want to pay :");
+            installmentNumber = scanner.next();
         }
-        payInstallment(loan, installmentNumber);
+        payInstallment(installmentNumber);
     }
 
-    public static void payInstallment(Loan loan, String installmentNumber) {
+    public static void payInstallment(String installmentNumber) {
         Installment installment = ApplicationContext.getInstallmentService().findByInstallmentNumber(installmentNumber);
+        Loan loan = ApplicationContext.getLoanService().findById(installment.getLoan().getId());
+        if (installment.getIsPayed()) {
+            System.out.println("this installment is already payed");
+            StudentMenu.run();
+        }
         CreditCard loanCreditCard = loan.getCreditCard();
         CreditCard clientCreditCard = new CreditCard();
+
         System.out.print("Enter the credit card number :");
         clientCreditCard.setCreditCardNumber(scanner.next());
-        if (!loanCreditCard.getCreditCardNumber().equals(clientCreditCard.getCreditCardNumber())) {
+        while (!loanCreditCard.getCreditCardNumber().equals(clientCreditCard.getCreditCardNumber())) {
             System.out.println("credit card number is not correct try again");
-            payInstallment(loan, installmentNumber);
+            clientCreditCard.setCreditCardNumber(scanner.next());
         }
         System.out.print("Enter cvv2 :");
         clientCreditCard.setCvv2(scanner.next());
-        if (!loanCreditCard.getCvv2().equals(clientCreditCard.getCvv2())) {
+        while (!loanCreditCard.getCvv2().equals(clientCreditCard.getCvv2())) {
             System.out.println("cvv2 is not correct try again");
-            payInstallment(loan, installmentNumber);
+            clientCreditCard.setCvv2(scanner.next());
         }
         System.out.print("Enter expire date :");
-        clientCreditCard.setExpire(TypeValidator.dateFormatter());
-        if (!loanCreditCard.getExpire().equals(clientCreditCard.getExpire())) {
+        clientCreditCard.setExpire(TypeValidator.cardDateFormatter());
+        while (!loanCreditCard.getExpire().equals(clientCreditCard.getExpire())) {
             System.out.println("expire date is not correct try again");
-            payInstallment(loan, installmentNumber);
+            clientCreditCard.setExpire(TypeValidator.cardDateFormatter());
         }
         installment.setIsPayed(true);
         ApplicationContext.getInstallmentService().update(installment);
         StudentMenu.run();
     }
 
-    public static boolean isInstallmentExist(Loan loan, String installmentPay) {
-        for (int i = 0; i <= Objects.requireNonNull(loan).getInstallments().size() - 1; i++) {
-            if (loan.getInstallments().get(i).getInstallmentNumber().equals(installmentPay)) {
+    public static boolean isInstallmentExist(List<Installment> installments, String installmentPay) {
+        for (int i = 0; i <= installments.size() - 1; i++) {
+            if (installments.get(i).getInstallmentNumber().equals(installmentPay)) {
                 return true;
             }
         }

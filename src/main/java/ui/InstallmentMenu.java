@@ -34,7 +34,7 @@ public class InstallmentMenu {
         for (int i = 0; i <= Objects.requireNonNull(loanList).size() - 1; i++) {
             System.out.println(loanList.get(i));
         }
-        System.out.print("Enter the loan number you want to pay installments :");
+        System.out.print("Enter a loan number :");
         String loanNumber = TypeValidator.getDigitString(15);
         Loan loan = null;
         for (int i = 0; i <= loanList.size() - 1; i++) {
@@ -49,7 +49,54 @@ public class InstallmentMenu {
         }
 
         assert loan != null;
-        installmentCheck(loan.getId());
+        ChooseInstallmentMenu(loan.getId());
+    }
+
+    public static void ChooseInstallmentMenu(Long loanId) {
+        int choice;
+        System.out.println("================");
+        System.out.println("Options:");
+        System.out.println("1. pay Installments");
+        System.out.println("2. see payed Installment");
+        System.out.println("3. see unpayed installment");
+        System.out.println("0. exit");
+        System.out.print("Enter your choice: ");
+        choice = TypeValidator.getIntInput();
+        System.out.println();
+
+        switch (choice) {
+            case 1:
+                installmentCheck(loanId);
+            case 2:
+                payedInstallments(loanId);
+            case 3:
+                unpayedInstallments(loanId);
+            case 0:
+                StudentMenu.run();
+            default:
+                System.out.println("*****Invalid choice. Please try again*****");
+                ChooseInstallmentMenu(loanId);
+        }
+    }
+
+    private static void unpayedInstallments(Long loanId) {
+        List<Installment> installments = ApplicationContext.getInstallmentService().findByInstallmentsLoanId(loanId);
+        for (int i = 0; i <= installments.size() - 1; i++) {
+            if (installments.get(i).getIsPayed().equals(false)) {
+                System.out.println(installments.get(i));
+            }
+        }
+        ChooseInstallmentMenu(loanId);
+    }
+
+    private static void payedInstallments(Long loanId) {
+        List<Installment> installments = ApplicationContext.getInstallmentService().findByInstallmentsLoanId(loanId);
+        for (int i = 0; i <= installments.size() - 1; i++) {
+            if (installments.get(i).getIsPayed().equals(true)) {
+                System.out.println(installments.get(i));
+            }
+        }
+        ChooseInstallmentMenu(loanId);
     }
 
     public static void installmentCheck(Long loanId) {

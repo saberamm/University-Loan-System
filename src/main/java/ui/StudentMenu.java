@@ -10,7 +10,7 @@ public class StudentMenu {
         System.out.println("================");
         System.out.println("Options:");
         System.out.println("1. get Loan Section");
-        System.out.println("2. pay Installment Section");
+        System.out.println("2. Installment Section");
         System.out.println("3. Time machine");
         System.out.println("0. exit");
         System.out.print("Enter your choice: ");

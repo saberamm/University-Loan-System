@@ -7,6 +7,7 @@ import entity.Student;
 import entity.enumertion.Grade;
 import util.ApplicationContext;
 import util.SecurityContext;
+import util.SystemTime;
 import validation.TypeValidator;
 
 import java.math.BigDecimal;
@@ -143,6 +144,7 @@ public class InstallmentMenu {
             clientCreditCard.setExpire(TypeValidator.cardDateFormatter());
         }
         installment.setIsPayed(true);
+        installment.setTimePayed(SystemTime.systemTime);
         ApplicationContext.getInstallmentService().update(installment);
         StudentMenu.run();
     }

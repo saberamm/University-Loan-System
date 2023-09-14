@@ -17,27 +17,14 @@ public class Installment extends BaseEntity<Long> {
     private String installmentNumber;
     @NotNull(message = "payTime cannot be null")
     private LocalDate payTime;
+
+    private LocalDate timePayed;
     @NotNull(message = "installmentAmount cannot be null")
     private Double installmentAmount;
     @NotNull(message = "isPayed cannot be null")
     private Boolean isPayed;
     @ManyToOne(cascade = CascadeType.ALL)
     private Loan loan;
-
-    public Installment(String installmentNumber, LocalDate payTime, Double installmentAmount, Boolean isPayed, Loan loan) {
-        this.installmentNumber = installmentNumber;
-        this.payTime = payTime;
-        this.installmentAmount = installmentAmount;
-        this.isPayed = isPayed;
-        this.loan = loan;
-    }
-
-    public Installment(String installmentNumber, LocalDate payTime, Double installmentAmount, Boolean isPayed) {
-        this.installmentNumber = installmentNumber;
-        this.payTime = payTime;
-        this.installmentAmount = installmentAmount;
-        this.isPayed = isPayed;
-    }
 
     public Installment() {
     }
@@ -82,6 +69,14 @@ public class Installment extends BaseEntity<Long> {
         this.loan = loan;
     }
 
+    public LocalDate getTimePayed() {
+        return timePayed;
+    }
+
+    public void setTimePayed(LocalDate timePayed) {
+        this.timePayed = timePayed;
+    }
+
     @Override
     public String toString() {
         return "Installment{" +
@@ -90,6 +85,7 @@ public class Installment extends BaseEntity<Long> {
                 ", payTime=" + payTime +
                 ", installmentAmount=" + String.format("%.1f", installmentAmount) +
                 ", isPayed=" + isPayed +
+                ", time installment payed=" + timePayed +
                 '}';
     }
 

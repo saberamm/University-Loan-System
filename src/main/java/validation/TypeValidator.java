@@ -76,7 +76,7 @@ public class TypeValidator {
             String dateString = scanner.next();
 
             try {
-                localDate = LocalDate.parse("13"+dateString+",01", formatter);
+                localDate = LocalDate.parse("13" + dateString + ",01", formatter);
                 validInput = true;
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format. Please use yyyy,M,d");
@@ -84,5 +84,23 @@ public class TypeValidator {
         }
         return localDate;
     }
+
+    public static String getDigitString() {
+        String input = "";
+        boolean isValid = false;
+
+        while (!isValid) {
+            input = scanner.nextLine();
+
+            if (input.matches("\\d+")) {
+                isValid = true;
+            } else {
+                System.out.println("Invalid input. Please enter only digits number");
+            }
+        }
+
+        return input;
+    }
 }
+
 

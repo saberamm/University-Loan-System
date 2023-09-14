@@ -18,7 +18,6 @@ import java.util.Objects;
 
 import static ui.LoanMenu.appendRandomDigits;
 import static ui.LoanMenu.isGraduate;
-import static ui.UserMenu.scanner;
 
 public class InstallmentMenu {
     public static void paySection() {
@@ -27,7 +26,7 @@ public class InstallmentMenu {
             System.out.println("you cant pay any installment because you not graduated");
             StudentMenu.run();
         }
-        List<Loan> loanList = student.getLoans();
+        List<Loan> loanList = ApplicationContext.getLoanService().getLoansByNationalCode(student.getNationalCode());
         if (loanList.size() == 0) {
             System.out.println("you dont have any loan");
             StudentMenu.run();
@@ -36,7 +35,7 @@ public class InstallmentMenu {
             System.out.println(loanList.get(i));
         }
         System.out.print("Enter the loan number you want to pay installments :");
-        String loanNumber = scanner.next();
+        String loanNumber = TypeValidator.getDigitString(15);
         Loan loan = null;
         for (int i = 0; i <= loanList.size() - 1; i++) {
             if (loanList.get(i).getLoanNumber().equals(loanNumber)) {
@@ -59,11 +58,11 @@ public class InstallmentMenu {
             System.out.println(installments.get(i));
         }
         System.out.print("Enter the installment number you want to pay :");
-        String installmentNumber = scanner.next();
+        String installmentNumber = TypeValidator.getDigitString(20);
         while (!isInstallmentExist(installments, installmentNumber)) {
             System.out.println("installment number doesn't exist try again");
             System.out.print("Enter the installment number you want to pay :");
-            installmentNumber = scanner.next();
+            installmentNumber = TypeValidator.getDigitString(20);
         }
         payInstallment(installmentNumber);
     }
@@ -79,16 +78,16 @@ public class InstallmentMenu {
         CreditCard clientCreditCard = new CreditCard();
 
         System.out.print("Enter the credit card number :");
-        clientCreditCard.setCreditCardNumber(scanner.next());
+        clientCreditCard.setCreditCardNumber(TypeValidator.getDigitString(16));
         while (!loanCreditCard.getCreditCardNumber().equals(clientCreditCard.getCreditCardNumber())) {
             System.out.print("credit card number is not correct try again :");
-            clientCreditCard.setCreditCardNumber(scanner.next());
+            clientCreditCard.setCreditCardNumber(TypeValidator.getDigitString(16));
         }
         System.out.print("Enter cvv2 :");
-        clientCreditCard.setCvv2(scanner.next());
+        clientCreditCard.setCvv2(TypeValidator.getDigitString(4));
         while (!loanCreditCard.getCvv2().equals(clientCreditCard.getCvv2())) {
             System.out.print("cvv2 is not correct try again :");
-            clientCreditCard.setCvv2(scanner.next());
+            clientCreditCard.setCvv2(TypeValidator.getDigitString(4));
         }
         System.out.print("Enter expire date :");
         clientCreditCard.setExpire(TypeValidator.cardDateFormatter());

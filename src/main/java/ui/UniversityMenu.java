@@ -8,13 +8,15 @@ import validation.TypeValidator;
 
 import static ui.UserMenu.scanner;
 
+
 public class UniversityMenu {
     public static void addUniversity() {
         University university = new University();
         System.out.print("Enter the university number :");
-        university.setUniversityNumber(scanner.next());
+        university.setUniversityNumber(TypeValidator.getDigitString(5));
         System.out.print("Enter the university name :");
         university.setUniversityName(scanner.next());
+        scanner.nextLine();
         System.out.print("Enter the university type :");
         university.setUniversityType(UniversityType.selectUniversityType());
         if (university.getUniversityType().equals(UniversityType.DOLATI)) {

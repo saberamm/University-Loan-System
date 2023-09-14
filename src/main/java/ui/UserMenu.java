@@ -50,11 +50,11 @@ public class UserMenu {
         System.out.print("Enter the birth date :");
         student.setBirthDate(TypeValidator.dateFormatter());
         System.out.print("Enter the student number :");
-        student.setStudentNumber(scanner.next());
+        student.setStudentNumber(TypeValidator.getDigitString(5));
         System.out.print("Enter your birthCertificateNumber :");
-        student.setBirthCertificateNumber(scanner.next());
+        student.setBirthCertificateNumber(TypeValidator.getDigitString());
         System.out.print("Enter your nationalCode :");
-        student.setNationalCode(scanner.next());
+        student.setNationalCode(TypeValidator.getDigitString(10));
         System.out.print("Enter your university enter year :");
         student.setEnterYear(TypeValidator.dateFormatter());
         System.out.print("Enter your grade :");
@@ -62,7 +62,7 @@ public class UserMenu {
         System.out.print("are you a dormitory Resident ? (yes or no to answer) :");
         student.setDormitoryResident(TypeValidator.getBooleanInput());
         System.out.print("Enter your university number :");
-        String universityNumber = scanner.next();
+        String universityNumber = TypeValidator.getDigitString(5);
         if (ApplicationContext.getUniversityService().findByUniversityNumber(universityNumber) == null) {
             System.out.println("this university doesn't exist");
             run();
@@ -83,8 +83,10 @@ public class UserMenu {
     public static void userSigning() {
         System.out.print("Enter username : ");
         String username = scanner.next();
+        scanner.nextLine();
         System.out.print("Enter password : ");
         String password = scanner.next();
+        scanner.nextLine();
 
         User user = ApplicationContext.getUserService().userAuthentication(username, password);
         if (user != null) {

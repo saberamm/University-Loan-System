@@ -6,6 +6,7 @@ import entity.enumertion.*;
 import util.ApplicationContext;
 import util.SecurityContext;
 import util.SystemTime;
+import validation.TypeValidator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +14,6 @@ import java.util.Random;
 
 import static ui.CreditCardMenu.addCreditCard;
 import static ui.HouseInfoMenu.addHouse;
-import static ui.UserMenu.scanner;
 
 public class LoanMenu {
     public static void addLoan() {
@@ -32,7 +32,7 @@ public class LoanMenu {
         }
         if (loan.getLoanType().equals(LoanType.HOUSE_LOAN) && student.getSpouseNationalCode() == null) {
             System.out.print("Enter your Spouse national code :");
-            student.setSpouseNationalCode(scanner.next());
+            student.setSpouseNationalCode(TypeValidator.getDigitString(10));
             ApplicationContext.getStudentService().update(student);
         }
         if (loan.getLoanType().equals(LoanType.HOUSE_LOAN) && hasSpouseHouseLoan(ApplicationContext.getLoanService().getLoansByNationalCode(student.getSpouseNationalCode()))) {

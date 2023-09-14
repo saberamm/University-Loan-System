@@ -3,13 +3,11 @@ package validation;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import static ui.UserMenu.scanner;
 
 public class TypeValidator {
     public static long getLongInput() {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             if (scanner.hasNextLong()) {
                 return scanner.nextLong();
@@ -21,7 +19,6 @@ public class TypeValidator {
     }
 
     public static int getIntInput() {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             if (scanner.hasNextInt()) {
                 return scanner.nextInt();
@@ -33,7 +30,6 @@ public class TypeValidator {
     }
 
     public static boolean getBooleanInput() {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.next();
 
@@ -96,6 +92,22 @@ public class TypeValidator {
                 isValid = true;
             } else {
                 System.out.println("Invalid input. Please enter only digits number");
+            }
+        }
+
+        return input;
+    }
+    public static String getDigitString(int desiredLength) {
+        String input = "";
+        boolean isValid = false;
+
+        while (!isValid) {
+            input = scanner.nextLine();
+
+            if (input.matches("\\d+") && input.length() == desiredLength) {
+                isValid = true;
+            } else {
+                System.out.println("Invalid input. Please enter a " + desiredLength + "-digit number.");
             }
         }
 
